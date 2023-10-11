@@ -70,10 +70,10 @@ RUN sudo apt-get update \
  && cd /home/gitpod \
  && mkdir .config \
  && cd .config \
- && sudo mkdir nvim \
+ && mkdir nvim \
  && cd nvim \
- && sudo git clone https://github.com/rom38/Neovim-from-scratch .\
- && sudo git switch dev\
+ && git clone https://github.com/rom38/Neovim-from-scratch .\
+ && git switch dev\
  && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
  && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
  #&& nvim --headless +PlugInstall +qall
