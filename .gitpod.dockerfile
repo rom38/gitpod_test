@@ -62,7 +62,7 @@ RUN cd /root/TMP && git clone https://github.com/neovim/neovim
 RUN cd /root/TMP/neovim && git checkout stable && make -j4 && make install
 RUN rm -rf /root/TMP \
   && cd /home/gitpod/.local \
-  && rm state 
+  && rm -rf state 
 
 
 
