@@ -25,7 +25,7 @@ ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
-RUN brew install cmake lf lcd
+RUN brew install cmake lf lsd
 
 USER root
 
