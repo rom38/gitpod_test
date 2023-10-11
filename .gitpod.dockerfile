@@ -25,11 +25,11 @@ ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
-RUN brew install cmake lf lsd
+RUN brew install cmake lf lsd gh
 
 USER root
 
-RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu wget
+RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu wget fd-find tmux
 ###################################
 
 USER gitpod
@@ -48,18 +48,23 @@ RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep
 
 
 # Cooperate Neovim with Python 3.
-RUN pip3 install pynvim
+RUN pip3 install pynvim black
 
 # Cooperate NodeJS with Neovim.
-RUN npm i -g neovim
+RUN npm i -g neovim prettier
 
 USER root
 
 # Install Neovim from source.
+ENV CMAKE_BUILD_TYPE=RelWithDebInfo
 RUN mkdir -p /root/TMP
 RUN cd /root/TMP && git clone https://github.com/neovim/neovim
 RUN cd /root/TMP/neovim && git checkout stable && make -j4 && make install
-RUN rm -rf /root/TMP
+RUN rm -rf /root/TMP \
+  && cd /home/gitpod/.local \
+  && rm state 
+
+
 
 USER gitpod
 
@@ -74,6 +79,7 @@ RUN sudo apt-get update \
  && cd nvim \
  && git clone https://github.com/rom38/Neovim-from-scratch .\
  && git switch dev\
+ && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
  && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
  && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
  #&& nvim --headless +PlugInstall +qall
