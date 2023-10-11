@@ -25,11 +25,11 @@ ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
-RUN brew install cmake 
+RUN brew install cmake lf lcd
 
 USER root
 
-RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lfm wget
+RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu wget
 ###################################
 
 USER gitpod
