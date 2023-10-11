@@ -53,12 +53,15 @@ RUN pip3 install pynvim
 # Cooperate NodeJS with Neovim.
 RUN npm i -g neovim
 
+USER root
+
 # Install Neovim from source.
 RUN mkdir -p /root/TMP
 RUN cd /root/TMP && git clone https://github.com/neovim/neovim
 RUN cd /root/TMP/neovim && git checkout stable && make -j4 && make install
 RUN rm -rf /root/TMP
 
+USER gitpod
 
 RUN sudo apt-get update \
  && sudo rm -rf /var/lib/apt/lists/*\
