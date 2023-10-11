@@ -67,7 +67,7 @@ RUN sudo apt-get update \
  && sudo rm -rf /var/lib/apt/lists/*\
 # && pyenv install 3.9.13\
 # && pyenv global 3.9.13\
- && cd /home/gitpod
+ && cd /home/gitpod \
  && sudo mkdir .config/nvim\
  && cd .config/nvim\
  && sudo git clone https://github.com/rom38/Neovim-from-scratch .\
