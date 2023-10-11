@@ -51,7 +51,7 @@ RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep
 RUN pip3 install pynvim black
 
 # Cooperate NodeJS with Neovim.
-RUN npm i -g neovim prettier pyright ts-server
+RUN npm i -g neovim prettier pyright typescript typescript-language-server
 
 USER root
 
