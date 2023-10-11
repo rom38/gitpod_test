@@ -29,7 +29,7 @@ RUN brew install cmake
 
 USER root
 
-RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lsd lf wget
+RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lfm wget
 ###################################
 
 USER gitpod
