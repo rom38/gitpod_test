@@ -25,7 +25,7 @@ ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
-RUN brew install cmake
+RUN brew install cmake gitui
 
 USER root
 
@@ -36,11 +36,11 @@ USER gitpod
 
 # install gitui
 
-RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
-    && bash -c "tar xzvf gitui-linux-musl.tar.gz \
-        && rm gitui-linux-musl.tar.gz \
-        && chmod +x gitui \
-        && mv gitui /usr/local/bin"
+# RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
+#     && bash -c "tar xzvf gitui-linux-musl.tar.gz \
+#         && rm gitui-linux-musl.tar.gz \
+#         && chmod +x gitui \
+#         && mv gitui /usr/local/bin"
 
 ###################################
 
