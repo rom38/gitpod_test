@@ -27,8 +27,12 @@ ENV HOMEBREW_NO_AUTO_UPDATE=1
 
 RUN brew install cmake
 
+USER root
+
 RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lsd lf wget
 ###################################
+
+USER gitpod
 
 # install gitui
 
