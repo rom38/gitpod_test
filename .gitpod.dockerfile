@@ -27,6 +27,7 @@ ENV HOMEBREW_NO_AUTO_UPDATE=1
 
 RUN brew install cmake
 
+RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lsd lf wget
 ###################################
 
 # install gitui
@@ -41,7 +42,6 @@ RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep
 
 # install neovim
 
-RUN apt-get -y install fzf ripgrep tree xclip tzdata ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config zip unzip mc ncdu lsd lf
 
 # Cooperate Neovim with Python 3.
 RUN pip3 install pynvim
