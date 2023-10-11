@@ -68,8 +68,10 @@ RUN sudo apt-get update \
 # && pyenv install 3.9.13\
 # && pyenv global 3.9.13\
  && cd /home/gitpod \
- && sudo mkdir .config/nvim\
- && cd .config/nvim\
+ && mkdir .config \
+ && cd .config \
+ && sudo mkdir nvim \
+ && cd nvim \
  && sudo git clone https://github.com/rom38/Neovim-from-scratch .\
  && sudo git switch dev\
  && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'\
