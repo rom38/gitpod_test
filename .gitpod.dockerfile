@@ -25,7 +25,7 @@ ENV MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 ENV INFOPATH="$INFOPATH:/home/linuxbrew/.linuxbrew/share/info"
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 
-RUN brew install cmake gitui
+RUN brew install cmake 
 
 USER root
 
@@ -36,11 +36,11 @@ USER gitpod
 
 # install gitui
 
-# RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
-#     && bash -c "tar xzvf gitui-linux-musl.tar.gz \
-#         && rm gitui-linux-musl.tar.gz \
-#         && chmod +x gitui \
-#         && mv gitui /usr/local/bin"
+RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
+     && bash -c "tar xzvf gitui-linux-musl.tar.gz \
+         && rm gitui-linux-musl.tar.gz \
+         && chmod +x gitui \
+         && sudo mv gitui /usr/local/bin"
 
 ###################################
 
@@ -67,6 +67,7 @@ RUN sudo apt-get update \
  && sudo rm -rf /var/lib/apt/lists/*\
 # && pyenv install 3.9.13\
 # && pyenv global 3.9.13\
+ && cd /home/gitpod
  && sudo mkdir .config/nvim\
  && cd .config/nvim\
  && sudo git clone https://github.com/rom38/Neovim-from-scratch .\
