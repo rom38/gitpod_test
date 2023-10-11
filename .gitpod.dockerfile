@@ -31,7 +31,7 @@ RUN brew install cmake
 
 # install gitui
 
-RUN curl -s curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
+RUN curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - \
     && bash -c "tar xzvf gitui-linux-musl.tar.gz \
         && rm gitui-linux-musl.tar.gz \
         && chmod +x gitui \
