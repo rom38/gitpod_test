@@ -1,6 +1,5 @@
 image:
   file: .gitpod.dockerfile
-
 tasks:
     - name: tailscaled
       command: |
