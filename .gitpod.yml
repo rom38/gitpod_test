@@ -14,7 +14,7 @@ tasks:
           if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
             sudo -E tailscale up --advertise-exit-node
           else
-            sudo -E tailscale up --advertise-exit-node --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT} | jq -r .repository.name)" --authkey ${TAILSCALE_AUTHKEY}
+            sudo -E tailscale up --advertise-exit-node --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT} --authkey ${TAILSCALE_AUTHKEY} | jq -r .repository.name)" 
             # store the tailscale state into gitpod user
             gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
           fi
