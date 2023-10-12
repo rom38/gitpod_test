@@ -1,57 +1,56 @@
 image:
   file: .gitpod.dockerfile
 tasks:
-    - name: tailscaled
-      command: |
-          if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
-            # restore the tailscale state from gitpod user's env vars
-            sudo mkdir -p /var/lib/tailscale
-            echo "${TAILSCALE_STATE_MYPROJECT}" | sudo tee /var/lib/tailscale/tailscaled.state > /dev/null
-          fi
-          sudo tailscaled
-    - name: tailscale
-      command: |
-          sleep 3
-          if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
-            sudo -E tailscale up --advertise-exit-node
-          else
-            sudo -E tailscale up --authkey="${TAILSCALE_AUTHKEY}" --advertise-exit-node --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT//_/-} | jq -r .repository.name)" 
-            # store the tailscale state into gitpod user
-            gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
-          fi
-    - name: install_gitui
-      init: |
-          curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi - 
-          bash -c "tar xzvf gitui-linux-musl.tar.gz 
-          rm gitui-linux-musl.tar.gz 
-          chmod +x gitui 
-          sudo mv gitui /usr/local/bin"
-    - name: brew_install
-      init: | 
-          brew install nvim lf lsd gh
-          gp sync-done nvim
-    - name: pip3_install
-      init: pip3 install pynvim black
-    - name: npm_install
-      init: npm i -g neovim prettier pyright typescript typescript-language-server
-    - name: apt_install
-      init: >
-          sudo apt-get update && sudo apt-get -y install fzf tree xclip tzdata ninja-build gettext
-          libtool libtool-bin autoconf automake pkg-config mc ncdu wget
-          fd-find tmux luajit libluajit-5.1-dev lua-mpack lua-lpeg
-          libunibilium-dev libmsgpack-dev libtermkey-dev
-    - name: config_nvim
-      init: |
-          gp sync-await nvim
-          cd /home/gitpod 
-          mkdir .config 
-          cd .config 
-          mkdir nvim 
-          cd nvim 
-          git clone https://github.com/rom38/Neovim-from-scratch .
-          git switch dev
-          nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-          nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-          nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-          
+  - name: tailscaled
+    command: |
+      if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
+        # restore the tailscale state from gitpod user's env vars
+        sudo mkdir -p /var/lib/tailscale
+        echo "${TAILSCALE_STATE_MYPROJECT}" | sudo tee /var/lib/tailscale/tailscaled.state > /dev/null
+      fi
+      sudo tailscaled
+  - name: tailscale
+    command: |
+      if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
+        sudo -E tailscale up --advertise-exit-node
+      else
+        sudo -E tailscale up --authkey="${TAILSCALE_AUTHKEY}" --advertise-exit-node --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT//_/-} | jq -r .repository.name)"
+        # store the tailscale state into gitpod user
+        gp env TAILSCALE_STATE_MYPROJECT="$(sudo cat /var/lib/tailscale/tailscaled.state)"
+      fi
+  - name: install_gitui
+    init: |
+      curl -s https://api.github.com/repos/extrawurst/gitui/releases/latest | grep -wo "https.*linux.*gz" | wget -qi -
+      bash -c "tar xzvf gitui-linux-musl.tar.gz
+      rm gitui-linux-musl.tar.gz
+      chmod +x gitui
+      sudo mv gitui /usr/local/bin"
+  - name: brew_install
+    init: |
+      brew install nvim lf lsd gh
+      gp sync-done nvim
+  - name: pip3_install
+    init: pip3 install pynvim black
+  - name: npm_install
+    init: npm i -g neovim prettier pyright typescript typescript-language-server
+  - name: apt_install
+    init: >
+      sudo apt-get update && sudo apt-get -y install fzf tree xclip tzdata ninja-build gettext
+      libtool libtool-bin autoconf automake pkg-config mc ncdu wget
+      fd-find tmux luajit libluajit-5.1-dev lua-mpack lua-lpeg
+      libunibilium-dev libmsgpack-dev libtermkey-dev
+  - name: config_nvim
+    init: |
+      gp sync-await nvim
+      cd /home/gitpod
+      mkdir .config
+      cd .config
+      mkdir nvim
+      cd nvim
+      git clone https://github.com/rom38/Neovim-from-scratch .
+      git switch dev
+      nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+      nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+      nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
 # && nvim --headless +PlugInstall +qall
