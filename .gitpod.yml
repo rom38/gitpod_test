@@ -7,11 +7,13 @@ tasks:
         # restore the tailscale state from gitpod user's env vars
         sudo mkdir -p /var/lib/tailscale
         echo "${TAILSCALE_STATE_MYPROJECT}" | sudo tee /var/lib/tailscale/tailscaled.state > /dev/null
+        gp sync-done tailscale
       fi
       sudo tailscaled
   - name: tailscale
     command: |
       if [ -n "${TAILSCALE_STATE_MYPROJECT}" ]; then
+        gp sync-await tailscale
         sudo -E tailscale up
       else
         sudo -E tailscale up --authkey="${TAILSCALE_AUTHKEY}" --advertise-exit-node --hostname "gitpod-${GITPOD_GIT_USER_NAME// /-}-$(echo ${GITPOD_WORKSPACE_CONTEXT//_/-} | jq -r .repository.name)"
