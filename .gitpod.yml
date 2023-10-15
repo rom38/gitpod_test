@@ -27,6 +27,7 @@ tasks:
       rm gitui-linux-musl.tar.gz
       chmod +x gitui
       sudo mv gitui /usr/local/bin"
+      rm *.tar.gz*
   - name: brew_install
     command: |
       brew install nvim lf lsd gh
